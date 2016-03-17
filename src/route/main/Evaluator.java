@@ -1,5 +1,7 @@
 package route.main;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -20,10 +22,13 @@ public class Evaluator extends CalcVisitor {
 	@Override
 	public Object visit(Funcdecl node) {
 		String id = String.class.cast(node.child.get(0).accept(this));
-		Map<String, Object> subrecord = new HashMap<String, Object>();
-		
 		//funcdecl.. not yet!
-		record.put(id, subrecord);
+		@SuppressWarnings("unchecked")
+		ArrayList<SimpleEntry<String, Object>> arglist = (ArrayList<SimpleEntry<String, Object>>) node.child.get(1).accept(this);
+		
+		Function func = new Function(arglist, returnList);
+		
+		record.put(id, func);
 		return null;
 	}
 	
