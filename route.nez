@@ -1,6 +1,4 @@
-//lastModified: 2016/03/10
-
-chunk = { S*  $(decl)  ('\n' S+ $(decl))* S* #Source}
+chunk = { S*  $(decl)  ('\n' [ \t]* S+ $(decl))* S* #Source}
 decl = iodecl / funcdecl / vardecl
 
 //iodecl's structure

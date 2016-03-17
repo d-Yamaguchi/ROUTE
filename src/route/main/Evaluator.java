@@ -1,11 +1,12 @@
 package route.main;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Evaluator extends CalcVisitor {
 	
-	HashMap<String, Object> record = new HashMap<String, Object>();
+	Map<String, Object> record = new HashMap<String, Object>();
 	
 	public Object eval(CalcTree node){
 		return node.accept(this);
@@ -19,7 +20,8 @@ public class Evaluator extends CalcVisitor {
 	@Override
 	public Object visit(Funcdecl node) {
 		String id = String.class.cast(node.child.get(0).accept(this));
-		HashMap<String, Object> subrecord = new HashMap<String, Object>();
+		Map<String, Object> subrecord = new HashMap<String, Object>();
+		
 		//funcdecl.. not yet!
 		record.put(id, subrecord);
 		return null;

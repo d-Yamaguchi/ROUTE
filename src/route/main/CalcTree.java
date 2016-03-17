@@ -1,9 +1,34 @@
 package route.main;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.swing.JApplet;
 
 import nez.ast.CommonTree;
+import nez.peg.tpeg.type.LType.TupleType;
 import route.main.Translator;
+
+
+public class Function {
+	Map<String, Object> funcrecord = new HashMap<String, Object>();
+	Map<Integer, Boolean> intReturnList = new HashMap<Integer, Boolean>();
+	Map<Boolean, Boolean> boolReturnList = new HashMap<Boolean, Boolean>();
+	ArrayList<SimpleEntry<String,Object>> argumentList = new ArrayList<SimpleEntry<String,Object>>();
+	
+	public Function(ArrayList<SimpleEntry<String, Object>> arguments, Map<Integer, Boolean> returnList){
+		this.argumentList = arguments;
+		this.intReturnList = returnList;
+	}
+	
+	public Function(ArrayList<SimpleEntry<String, Object>> arguments, Map<Boolean, Boolean> returnList) {
+		this.argumentList = arguments;
+		this.boolReturnList = returnList;
+	}
+}
 
 public abstract class CalcTree {
 	List<CalcTree> child;
@@ -49,6 +74,8 @@ class Funcdecl extends CalcTree {
 			this.child.add(Translator.translate(cnode));
 		}
 	}
+	
+	
 
 	@Override
 	public Object accept(CalcVisitor visitor) {
