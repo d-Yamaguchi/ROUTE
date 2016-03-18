@@ -41,15 +41,14 @@ class Source extends CalcTree {
 }
 
 class Funcdecl extends CalcTree {
-	public Funcdecl(CommonTree... node) {
+	public Funcdecl(CalcTree node0, CalcTree node1, CalcTree node2, CalcTree node3, CalcTree node4) {
 		super();
-		for (int i = 0; i < node.length; i++) {
-			CommonTree cnode = node[i].get(i);
-			this.child.add(Translator.translate(cnode));
-		}
+		this.child.add(node0);
+		this.child.add(node1);
+		this.child.add(node2);
+		this.child.add(node3);
+		this.child.add(node4);
 	}
-	
-	
 
 	@Override
 	public Object accept(CalcVisitor visitor) {

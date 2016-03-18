@@ -8,7 +8,7 @@ public class Translator {
 		case "Source":
 			return new Source(node);
 		case "Funcdecl":
-			return new Funcdecl(node);
+			return new Funcdecl(translate(node.get(0)), translate(node.get(1)), translate(node.get(2)), translate(node.get(3)), translate(node.get(4)));
 		case "Arglist":
 			return new Arglist(translate(node.get(0)), translate(node.get(1)));
 		case "Returnlist":
