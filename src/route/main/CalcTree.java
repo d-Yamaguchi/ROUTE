@@ -94,6 +94,19 @@ class Return extends BinaryExpr {
 	
 }
 
+class OthWiseRet extends CalcTree{
+
+	public OthWiseRet(CalcTree cnode) {
+		this.child.add(cnode);
+	}
+
+	@Override
+	public Object accept(CalcVisitor visitor) {
+		return visitor.visit(this);
+	}
+	
+}
+
 class Vardecl extends BinaryExpr {
 	
 	public Vardecl(CalcTree left, CalcTree right){

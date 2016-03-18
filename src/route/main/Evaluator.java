@@ -24,15 +24,23 @@ public class Evaluator extends CalcVisitor {
 		String id = String.class.cast(node.child.get(0).accept(this));
 		@SuppressWarnings("unchecked")
 		LinkedList<SimpleEntry<String, Object>> arglist = (LinkedList<SimpleEntry<String, Object>>) node.child.get(1).accept(this);
-		@SuppressWarnings("unchecked")
-		LinkedList<SimpleEntry<Object, Boolean>> returnList = (LinkedList<SimpleEntry<Object, Boolean>>) node.child.get(2).accept(this);
-		returnList.addLast(new SimpleEntry<Object, Boolean>(node.child.get(3).accept(this), true));
+		if (node.child.get(4).accept(this) == null) {
+			LinkedList<SimpleEntry<Object, Boolean>> returnList = new LinkedList<SimpleEntry<Object,Boolean>>();
+			returnList.add(new SimpleEntry<Object, Boolean>(node.child.get(2).accept(this),true));//this node returned value from othWiseRet
+			@SuppressWarnings("unchecked")
+			Map<String, Object> funcrecord = (Map<String, Object>) node.child.get(3).accept(this);
+			Function func = new Function(arglist, returnList, funcrecord);
+			record.put(id, func);
+		} else {		
+			@SuppressWarnings("unchecked")
+			LinkedList<SimpleEntry<Object, Boolean>> returnList = (LinkedList<SimpleEntry<Object, Boolean>>) node.child.get(2).accept(this);
+			returnList.addLast(new SimpleEntry<Object, Boolean>(node.child.get(3).accept(this), true));
 		
-		@SuppressWarnings("unchecked")
-		Map<String,Object> funcrecord = (Map<String, Object>) node.child.get(4).accept(this);
-		Function func = new Function(arglist, returnList, funcrecord);
-		
-		record.put(id, func);
+			@SuppressWarnings("unchecked")
+			Map<String,Object> funcrecord = (Map<String, Object>) node.child.get(4).accept(this);
+			Function func = new Function(arglist, returnList, funcrecord);
+			record.put(id, func);
+		}	
 		return null;
 	}
 	
@@ -87,6 +95,11 @@ public class Evaluator extends CalcVisitor {
 		Object left = node.child.get(0).accept(this);
 		Boolean right = Boolean.class.cast(node.child.get(1).accept(this));
 		return new SimpleEntry<Object, Boolean>(left,right);
+	}
+	
+	@Override
+	public Object visit(OthWiseRet node){
+		return node.child.get(0).accept(this);
 	}
 	
 	@Override

@@ -38,9 +38,9 @@ public abstract class CalcVisitor {
 
 	public abstract Object visit(Return node);
 
-	public abstract Object visit(OthwiseRet node);
+	public abstract Object visit(OthWiseRet node);
 
-	public abstract Object visit(Returncase node);
+	//public abstract Object visit(Returncase node);
 
 	public abstract Object visit(Where node);
 

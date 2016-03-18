@@ -15,6 +15,8 @@ public class Translator {
 			return new Returnlist(translate(node.get(0)), translate(node.get(1)));
 		case "Return":
 			return new Return(translate(node.get(0)), translate(node.get(1)));
+		case "OthWiseRet":
+			return new OthWiseRet(translate(node.get(0)));
 		case "Vardecl":
 			return new Vardecl(translate(node.get(0)), translate(node.get(1)));
 		case "Unop":
