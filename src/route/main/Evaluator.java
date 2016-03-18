@@ -1,8 +1,8 @@
 package route.main;
 
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -22,11 +22,15 @@ public class Evaluator extends CalcVisitor {
 	@Override
 	public Object visit(Funcdecl node) {
 		String id = String.class.cast(node.child.get(0).accept(this));
-		//funcdecl.. not yet!
 		@SuppressWarnings("unchecked")
-		ArrayList<SimpleEntry<String, Object>> arglist = (ArrayList<SimpleEntry<String, Object>>) node.child.get(1).accept(this);
+		LinkedList<SimpleEntry<String, Object>> arglist = (LinkedList<SimpleEntry<String, Object>>) node.child.get(1).accept(this);
+		@SuppressWarnings("unchecked")
+		LinkedList<SimpleEntry<Object, Boolean>> returnList = (LinkedList<SimpleEntry<Object, Boolean>>) node.child.get(2).accept(this);
+		returnList.addLast(new SimpleEntry<Object, Boolean>(node.child.get(3).accept(this), true));
 		
-		Function func = new Function(arglist, returnList);
+		@SuppressWarnings("unchecked")
+		Map<String,Object> funcrecord = (Map<String, Object>) node.child.get(4).accept(this);
+		Function func = new Function(arglist, returnList, funcrecord);
 		
 		record.put(id, func);
 		return null;
@@ -34,7 +38,7 @@ public class Evaluator extends CalcVisitor {
 	
 	@Override
 	public Object visit(Returnlist node) {
-		//return value is a list data structure?
+		//return value is a list data structure?--Yes!!
 		return null;	
 	}
 	

@@ -1,29 +1,8 @@
 package route.main;
-import java.util.AbstractMap;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.swing.JApplet;
-
 import nez.ast.CommonTree;
-import nez.peg.tpeg.type.LType.TupleType;
 import route.main.Translator;
-
-
-public class Function {
-	Map<String, Object> funcrecord = new HashMap<String, Object>();
-	ArrayList<SimpleEntry<Object, Boolean>> returnList = new ArrayList<AbstractMap.SimpleEntry<Object,Boolean>>();
-	ArrayList<SimpleEntry<String,Object>> argumentList = new ArrayList<SimpleEntry<String,Object>>();
-	
-	public Function(ArrayList<SimpleEntry<String, Object>> arguments, ArrayList<SimpleEntry<Object, Boolean>> returnList){
-		this.argumentList = arguments;
-		this.returnList = returnList;
-	}
-	
-}
 
 public abstract class CalcTree {
 	List<CalcTree> child;
