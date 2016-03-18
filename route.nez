@@ -35,7 +35,7 @@ exp0 = exp1 {$left ( _ ('==' #Equals / '!=' #NotEquals) _ $right(exp1)) }*
 exp1 = exp6 {$left ( _ ('<=' #LessThanEquals / '<' #LessThan / '>=' #GreaterThanEquals / '>' #GreaterThan) _ $right(exp6)) }*
 exp6 = exp7 {$left ( _ ('+' #Add) _ $right(exp7)) }*
 exp7 = exps {$left ( _ ('*' #Mul) _ $right(exps)) }*
-exps =  nil / false / true / numeral / funcCall / name / { $(unop) $(exp) #Unop}
+exps = false / true / numeral / funcCall / name / { $(unop) $(exp) #Unop}
 
 unop = {'-' #Minus} / {'!' #Not}
 
