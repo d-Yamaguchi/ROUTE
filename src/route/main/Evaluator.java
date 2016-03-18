@@ -207,20 +207,24 @@ public class Evaluator extends CalcVisitor {
 	
 	@Override
 	public Object visit(Unop node){
+		Object leftnode = node.child.get(0).accept(this);
 		Object rightnode = node.child.get(1).accept(this);
-		if(rightnode instanceof Integer ){
+		if(Boolean.class.cast(leftnode) ){
 			Integer value =Integer.class.cast(rightnode) * (-1);
 			return value;
-		}
-		else if (rightnode instanceof Boolean){
+		}else {
 			Boolean value = Boolean.class.cast(rightnode);
 			return !value;
 		}
-		else{
-			return null;
-			//error
-		}
 	}
-
 	
+	@Override
+	public Object visit(Minus node) {
+		return true;
+	}
+	
+	@Override
+	public Object visit(Not node) {
+		return false;
+	}
 }

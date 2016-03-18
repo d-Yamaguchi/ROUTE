@@ -300,6 +300,25 @@ class False extends CalcTree{
 	@Override
 	public Object accept(CalcVisitor visitor) {
 		return visitor.visit(this);
+	}	
+}
+
+class Minus extends CalcTree{
+	public Minus() {
 	}
-	
+	@Override
+	public Object accept(CalcVisitor visitor) {
+		return visitor.visit(this);
+	}
+
+}
+
+class Not extends CalcTree{
+	public Not() {
+	}
+	@Override
+	public Object accept(CalcVisitor visitor) {
+		return visitor.visit(this);
+	}
+
 }

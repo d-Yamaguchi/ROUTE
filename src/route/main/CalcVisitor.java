@@ -46,8 +46,6 @@ public abstract class CalcVisitor {
 
 	public abstract Object visit(Declist node);
 
-	public abstract Object visit(Elemtype node);//型推論するからいらないのでは?
-
 	public abstract Object visit(FuncCall node);
 
 	public abstract Object visit(And node);
@@ -59,8 +57,6 @@ public abstract class CalcVisitor {
 	public abstract Object visit(Minus node);
 
 	public abstract Object visit(Not node);
-
-	public abstract Object visit(Nil node);//wrong型
 
 	public abstract Object visit(False node);
 

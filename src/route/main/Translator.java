@@ -17,6 +17,10 @@ public class Translator {
 			return new Vardecl(translate(node.get(0)), translate(node.get(1)));
 		case "Unop":
 			return new Unop(translate(node.get(0)), translate(node.get(1)));
+		case "Minus":
+			return new Minus();
+		case "Not":
+			return new Not();
 		case "Add":
 			return new Add(translate(node.get(0)), translate(node.get(1)));
 		case "Mul":
@@ -46,7 +50,7 @@ public class Translator {
 		case "True":
 			return new True(Boolean.parseBoolean(node.toText()));
 		case "False":
-			return new True(Boolean.parseBoolean(node.toText()));
+			return new False(Boolean.parseBoolean(node.toText()));
 		default:
 			break;
 		}
