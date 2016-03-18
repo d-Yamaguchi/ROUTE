@@ -6,10 +6,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
-import org.omg.CosNaming.IstringHelper;
-
 public class Evaluator extends CalcVisitor {
 	
 	Map<String, Object> record = new HashMap<String, Object>();
@@ -211,10 +207,20 @@ public class Evaluator extends CalcVisitor {
 	
 	@Override
 	public Object visit(Unop node){
-		Object leftnode = node.child.get(0).accept(this);
 		Object rightnode = node.child.get(1).accept(this);
-		//Not yet! Also, Minus and Not
-		return rightnode;
+		if(rightnode instanceof Integer ){
+			Integer value =Integer.class.cast(rightnode) * (-1);
+			return value;
+		}
+		else if (rightnode instanceof Boolean){
+			Boolean value = Boolean.class.cast(rightnode);
+			return !value;
+		}
+		else{
+			return null;
+			//error
+		}
 	}
+
 	
 }
