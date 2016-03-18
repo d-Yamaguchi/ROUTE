@@ -81,6 +81,19 @@ class Returnlist extends BinaryExpr {
 	}
 }
 
+class Return extends BinaryExpr {
+
+	public Return(CalcTree left, CalcTree right) {
+		super(left, right);
+	}
+
+	@Override
+	public Object accept(CalcVisitor visitor) {
+		return visitor.visit(this);
+	}
+	
+}
+
 class Vardecl extends BinaryExpr {
 	
 	public Vardecl(CalcTree left, CalcTree right){

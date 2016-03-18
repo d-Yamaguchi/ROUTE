@@ -13,6 +13,8 @@ public class Translator {
 			return new Arglist(translate(node.get(0)), translate(node.get(1)));
 		case "Returnlist":
 			return new Returnlist(translate(node.get(0)), translate(node.get(1)));
+		case "Return":
+			return new Return(translate(node.get(0)), translate(node.get(1)));
 		case "Vardecl":
 			return new Vardecl(translate(node.get(0)), translate(node.get(1)));
 		case "Unop":

@@ -59,10 +59,34 @@ public class Evaluator extends CalcVisitor {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object visit(Returnlist node) {
-		//return value is a list data structure?--Yes!!
-		return null;	
+		SimpleEntry<Object, Boolean> leftside = (SimpleEntry<Object, Boolean>) node.child.get(0).accept(this);
+		Object rightside = node.child.get(1).accept(this);
+		if (rightside==null) {
+			LinkedList<SimpleEntry<Object, Boolean>> returnList = new LinkedList<SimpleEntry<Object, Boolean>>();
+			returnList.add(leftside);
+			return returnList;
+		} else if (rightside instanceof SimpleEntry<?,?>) {
+			LinkedList<SimpleEntry<Object, Boolean>> returnList = new LinkedList<SimpleEntry<Object, Boolean>>();
+			returnList.add(leftside);
+			returnList.add((SimpleEntry<Object, Boolean>) rightside);
+			return returnList;
+		} else if (rightside instanceof LinkedList) {
+			LinkedList<SimpleEntry<Object, Boolean>> returnList = (LinkedList<SimpleEntry<Object, Boolean>>) rightside;
+			returnList.addFirst(leftside);
+			return returnList;
+		}else {
+			return null;
+		}	
+	}
+	
+	@Override
+	public Object visit(Return node){
+		Object left = node.child.get(0).accept(this);
+		Boolean right = Boolean.class.cast(node.child.get(1).accept(this));
+		return new SimpleEntry<Object, Boolean>(left,right);
 	}
 	
 	@Override
