@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
+import org.omg.CosNaming.IstringHelper;
+
 public class Evaluator extends CalcVisitor {
 	
 	Map<String, Object> record = new HashMap<String, Object>();
@@ -34,6 +38,29 @@ public class Evaluator extends CalcVisitor {
 		
 		record.put(id, func);
 		return null;
+	}
+	
+	@Override
+	public Object visit(Arglist node){
+		String leftside = String.class.cast(node.child.get(0).accept(this));
+		Object rightside = node.child.get(1).accept(this);
+		if (rightside==null) {
+			LinkedList<SimpleEntry<String, Object>> argList = new LinkedList<SimpleEntry<String,Object>>();
+			argList.add(new SimpleEntry<String, Object>(leftside,null));
+			return argList;
+		} else if (rightside instanceof String) {
+			LinkedList<SimpleEntry<String, Object>> argList = new LinkedList<SimpleEntry<String,Object>>();
+			argList.add(new SimpleEntry<String, Object>(leftside,null));
+			argList.add(new SimpleEntry<String, Object>(String.class.cast(rightside),null));
+			return argList;
+		} else if (rightside instanceof LinkedList) {
+			@SuppressWarnings("unchecked")
+			LinkedList<SimpleEntry<String, Object>> argList = (LinkedList<SimpleEntry<String, Object>>) rightside;
+			argList.addFirst(new SimpleEntry<String, Object>(leftside,null));
+			return argList;
+		}else {
+			return null;
+		}
 	}
 	
 	@Override

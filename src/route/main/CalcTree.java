@@ -1,6 +1,7 @@
 package route.main;
 import java.util.ArrayList;
 import java.util.List;
+
 import nez.ast.CommonTree;
 import route.main.Translator;
 
@@ -54,6 +55,19 @@ class Funcdecl extends CalcTree {
 	public Object accept(CalcVisitor visitor) {
 		return visitor.visit(this);
 	}
+}
+
+class Arglist extends BinaryExpr {
+
+	public Arglist(CalcTree left, CalcTree right) {
+		super(left, right);
+	}
+
+	@Override
+	public Object accept(CalcVisitor visitor) {
+		return visitor.visit(this);
+	}
+	
 }
 
 class Returnlist extends BinaryExpr {
