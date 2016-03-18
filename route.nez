@@ -7,15 +7,18 @@ in = { 'cin' _ '>>' _ $target(name) #In}
 out = { 'cout' _ '<<' _ $target(value) #Out}
 
 //funcdecl's leftside tree
-funcdecl = { $name(name) '(' _ $arglist(arglist) _ ')' _ ( $return(returnlist)　'\n' )? $othwiseret(othwiseret) $where(whereblock)? #Funcdecl}
+funcdecl = { $name(name) '(' _ $arglist(arglistbase) _ ')' _ ( $return(returnlistbase)　'\n' )? $othwiseret(othwiseret) $where(whereblock)? #Funcdecl}
 name = { !keyword ([a-z] / [A-Z])+ ([0-9] / [a-z] / [A-Z] / '_')* #Name}
-arglist = name {$left _ ',' _ $right(arglist) #Arglist}*
+arglistbase = !(name _ ','_){$arglist(name) #Arglist}/arglist
+arglist = name {$left _ ',' _ $right(arglist) #Arglist}?
 arglist2 = value {$left _ ',' _ $right(arglist2) #ArglistII}*
+returnlistbase = !(return _ '\n'returnlist){$return(return) #Returnlist}/returnlist
 returnlist = return {$left '\n' $right(returnlist) #Returnlist}*
 return = { _ '=' _ $retval(value) _ '[' _ $retcase(returncase) _ ']' #Return}
 othwiseret = { _ '=' _ $retval(value) ( _ '['_ 'otherwise' _ ']' )? #OthWiseRet}
 returncase = exp {$left _ ',' _ $right(exp) #Returncase}*
-whereblock = { '\n' _ 'where' _ $declist(declist) #Where}
+whereblock = { '\n' _ 'where' _ $declist(declistbase) #Where}
+declistbase = !((vardecl / funcdecl) _ '\n'_(vardecl / funcdecl)){$declist((vardecl / funcdecl)) #declist}/declist
 declist = (vardecl / funcdecl) {$left '\n' _ $right( vardecl / funcdecl ) #Declist}*
 
 //functioncall
