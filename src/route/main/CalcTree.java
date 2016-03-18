@@ -15,19 +15,14 @@ import route.main.Translator;
 
 public class Function {
 	Map<String, Object> funcrecord = new HashMap<String, Object>();
-	Map<Integer, Boolean> intReturnList = new HashMap<Integer, Boolean>();
-	Map<Boolean, Boolean> boolReturnList = new HashMap<Boolean, Boolean>();
+	ArrayList<SimpleEntry<Object, Boolean>> returnList = new ArrayList<AbstractMap.SimpleEntry<Object,Boolean>>();
 	ArrayList<SimpleEntry<String,Object>> argumentList = new ArrayList<SimpleEntry<String,Object>>();
 	
-	public Function(ArrayList<SimpleEntry<String, Object>> arguments, Map<Integer, Boolean> returnList){
+	public Function(ArrayList<SimpleEntry<String, Object>> arguments, ArrayList<SimpleEntry<Object, Boolean>> returnList){
 		this.argumentList = arguments;
-		this.intReturnList = returnList;
+		this.returnList = returnList;
 	}
 	
-	public Function(ArrayList<SimpleEntry<String, Object>> arguments, Map<Boolean, Boolean> returnList) {
-		this.argumentList = arguments;
-		this.boolReturnList = returnList;
-	}
 }
 
 public abstract class CalcTree {

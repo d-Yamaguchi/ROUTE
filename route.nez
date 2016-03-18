@@ -18,10 +18,6 @@ returncase = exp {$left _ ',' _ $right(exp) #Returncase}*
 whereblock = { '\n' _ 'where' _ $declist(declist) #Where}
 declist = (vardecl / funcdecl) {$left '\n' _ $right( vardecl / funcdecl ) #Declist}*
 
-//needless
-type = elemtype
-elemtype= {'Int' / 'Bool' #Elemtype}
-
 //functioncall
 funcCall = { $name(name) '(' _ $arglist(arglist2) _ ')' #FuncCall}
 
