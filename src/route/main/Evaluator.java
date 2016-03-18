@@ -209,12 +209,15 @@ public class Evaluator extends CalcVisitor {
 	public Object visit(Unop node){
 		Object leftnode = node.child.get(0).accept(this);
 		Object rightnode = node.child.get(1).accept(this);
-		if(Boolean.class.cast(leftnode) ){
+		if(Boolean.class.cast(leftnode) && rightnode instanceof Integer){
 			Integer value =Integer.class.cast(rightnode) * (-1);
 			return value;
-		}else {
+		}else if (!Boolean.class.cast(leftnode) && rightnode instanceof Boolean) {
 			Boolean value = Boolean.class.cast(rightnode);
 			return !value;
+		}else {
+			//error
+			return null;
 		}
 	}
 	
