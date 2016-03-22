@@ -16,8 +16,7 @@ returnlistbase = !(return _ '\n'returnlist){$return(return) #Returnlist}/returnl
 returnlist = return {$left '\n' $right(returnlist) #Returnlist}*
 return = { _ '=' _ $retval(value) _ '[' _ $retcase(returncase) _ ']' #Return}
 othwiseret = { _ '=' _ $retval(value) ( _ '['_ 'otherwise' _ ']' )? #OthWiseRet}
-//needless? change to <returncase = !(numeral / '-')exp>
-returncase = exp {$left _ ',' _ $right(exp) #Returncase}*
+returncase = !(numeral / '-')exp
 whereblock = { '\n' _ 'where' _ $declist(declistbase) #Where}
 declistbase = !((vardecl / funcdecl) _ '\n'_(vardecl / funcdecl)){$declist((vardecl / funcdecl)) #declist}/declist
 declist = (vardecl / funcdecl) {$left '\n' _ $right( vardecl / funcdecl ) #Declist}*
